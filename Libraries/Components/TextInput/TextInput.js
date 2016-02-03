@@ -102,24 +102,6 @@ var TextInput = React.createClass({
      */
     autoFocus: PropTypes.bool,
     /**
-     * Set the position of the cursor from where editing will begin.
-     * @platform android
-     */
-    textAlign: PropTypes.oneOf([
-      'start',
-      'center',
-      'end',
-    ]),
-    /**
-     * Aligns text vertically within the TextInput.
-     * @platform android
-     */
-    textAlignVertical: PropTypes.oneOf([
-      'top',
-      'center',
-      'bottom',
-    ]),
-    /**
      * If false, text is not editable. The default value is true.
      */
     editable: PropTypes.bool,
@@ -244,6 +226,11 @@ var TextInput = React.createClass({
      * The text color of the placeholder string
      */
     placeholderTextColor: PropTypes.string,
+    /**
+    * The highlight and cursor color of the text input
+    * @platform ios
+    */
+    tintColor: PropTypes.string,
     /**
      * If true, the text input obscures the text entered so that sensitive text
      * like passwords stay secure. The default value is false.
@@ -491,10 +478,6 @@ var TextInput = React.createClass({
 
     var autoCapitalize =
       UIManager.AndroidTextInput.Constants.AutoCapitalizationType[this.props.autoCapitalize];
-    var textAlign = UIManager.AndroidTextInput.Constants.TextAlign[this.props.textAlign];
-    var textAlignVertical =
-      UIManager.AndroidTextInput.Constants.TextAlignVertical[this.props.textAlignVertical];
-
     var children = this.props.children;
     var childCount = 0;
     ReactChildren.forEach(children, () => ++childCount);
@@ -512,8 +495,6 @@ var TextInput = React.createClass({
         style={[this.props.style]}
         autoCapitalize={autoCapitalize}
         autoCorrect={this.props.autoCorrect}
-        textAlign={textAlign}
-        textAlignVertical={textAlignVertical}
         keyboardType={this.props.keyboardType}
         mostRecentEventCount={0}
         multiline={this.props.multiline}
@@ -548,6 +529,10 @@ var TextInput = React.createClass({
   _onFocus: function(event: Event) {
     if (this.props.onFocus) {
       this.props.onFocus(event);
+    }
+
+    if (this.props.selectionState) {
+      this.props.selectionState.focus();
     }
   },
 
@@ -588,6 +573,10 @@ var TextInput = React.createClass({
     this.blur();
     if (this.props.onBlur) {
       this.props.onBlur(event);
+    }
+
+    if (this.props.selectionState) {
+      this.props.selectionState.blur();
     }
   },
 
