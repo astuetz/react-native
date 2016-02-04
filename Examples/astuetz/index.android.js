@@ -9,6 +9,7 @@ import React, {
   StyleSheet,
   Text,
   View,
+  Image,
   ToolbarAndroid
 } from 'react-native';
 
@@ -24,7 +25,11 @@ class astuetz extends Component {
           title={'React Native'} 
           titleColor={'#FFFFFF'}
           navIcon={require('./img/ic_arrow_back_white.png')}
-          contentInsetStart={CONTENT_INSET_START} />
+          contentInsetStart={CONTENT_INSET_START}
+          actions={[{title: 'Settings', icon: require('./img/ic_movie_filter_white_24dp.png'), show: 'always'}]} />
+        <Image 
+          style={[{backgroundColor: '#ff0000'}]} 
+          source={require('./img/ic_arrow_back_white.png')} />
       </View>
     );
   }

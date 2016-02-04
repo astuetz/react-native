@@ -237,7 +237,7 @@ android {
         compileTask -> compileTask.dependsOn packageReactNdkLibs
     }
 
-    clean.dependsOn cleanReactNdkLib
+    //clean.dependsOn cleanReactNdkLib
 
     lintOptions {
         abortOnError false
